@@ -17,7 +17,57 @@ namespace GameServer
             byte[] buffer = (byte[])data.Clone();
             int pLength = 0;
 
+            if(ClientManager.client[connectionID].buffer == null) ClientManager.client[connectionID].buffer = new ByteBuffer();
+            ClientManager.client[connectionID].buffer.WriteBytes(buffer);
             
+            if(ClientManager.client[connectionID].buffer.Count() == 0)
+            {
+                ClientManager.client[connectionID].buffer.Clear();
+                return;
+            }
+            if(ClientManager.client[connectionID].buffer.Length() >= 4)
+            {
+                pLength = ClientManager.client[connectionID].buffer.ReadInteger(false);
+                if(pLength <= 0)
+                {
+                    ClientManager.client[connectionID].buffer.Clear();
+                    return;
+                }
+            }
+            while(pLength >= 0 & pLength <= ClientManager.client[connectionID].buffer.Length() - 4)
+            {
+                if(ClientManager.client[connectionID].buffer.Length >= 4)
+                {
+                    ClientManager.client[connectionID].buffer.ReadInteger();
+                    data = ClientManager.client[connectionID].buffer.ReadBytes(pLength);
+                    HandleDataPackets(connectionID, data);
+                }
+
+                pLength = 0;
+                if(ClientManager.client[connectionID].buffer.Length >= 4)
+                {
+                    pLength = ClientManager.client[connectionID].buffer.ReadInteger();
+                    if(pLength <= 0){
+                        ClientManager.client[connectionID].buffer.Clear();
+                        return;
+                    }
+                }
+            }
+            if(pLength <= 0){
+                ClientManager.client[connectionID].buffer.Clear();
+            }
+        }
+
+        private static void HandleDataPackets(int connectionID, byte[] data)
+        {
+            ByteBuffer buffer = new ByteBuffer();
+            buffer.WriteBytes(data);
+            int packetID = buffer.ReadInteger();
+            buffer.Dispose();
+            if(packets.TryGetValue(packetID, out Packet packet))
+            {
+                packet.Invoke(connectionID, data);
+            }
         }
     }
 }
