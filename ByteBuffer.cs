@@ -41,14 +41,18 @@ namespace GameServer
             Buff.Clear();
             buffUpdated = true;
         }
-
-        public void WriteByte(byte[] input)
+        public void WriteByte(byte input)
+        {
+            Buff.Add(input);
+            buffUpdated = true;
+        }
+        public void WriteBytes(byte[] input)
         {
             Buff.AddRange(input);
             buffUpdated = true;
         }
 
-        public coid WriteLong(int input){
+        public void WriteLong(int input){
             Buff.AddRange(BitConverter.GetBytes(input));
             buffUpdated = true;
         }
