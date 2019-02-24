@@ -10,7 +10,7 @@ namespace GameServer
         public static Dictionary<int, Packet> packets = new Dictionary<int, Packet>();
         public static void InitializePackets()
         {
-
+            
         }
         public static void HandleData(int connectionID, byte[] data)
         {
