@@ -15,9 +15,11 @@ namespace GameServer
             serverSocket.BeginAcceptTcpClient(new AsyncCallback(OnClientConnect), null);
         }
 
-        private static void OnClientConnect(IAsyncResult ar)
+        private static void OnClientConnect(IAsyncResult result)
         {
-            TcpClient client = serverSocket.EndAcceptTcpClient(ar);
+            TcpClient client = serverSocket.EndAcceptTcpClient(result);
+            serverSocket.BeginAcceptTcpClient(new AsyncCallback(OnClientConnect), null);
+            ClientManager.CreateNewConnection(client);
         }
     }
 }

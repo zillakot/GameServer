@@ -17,6 +17,7 @@ namespace GameServer
             socket.ReceiveBufferSize = 4000;
             stream = socket.GetStream();
             stream.BeginRead(recBuffer, 0, socket.ReceiveBufferSize, OnReceiveData, null);
+            ServerHandleData.HandleData(connectionID, newBytes);
             Console.WriteLine("Incoming connection from '{0}'", socket.Client.RemoteEndPoint.ToString());
         }
 
@@ -25,12 +26,15 @@ namespace GameServer
             try
             {
                 int length = stream.EndRead(result);
-                if(length <= 0){
+                if(length <= 0)
+                {
                     CloseConnection();
                     return;
                 }
+
                 byte[] newBytes = new byte[length];
                 Array.Copy(recBuffer, newBytes, length);
+                ServerHandleData.HandleData(connectionID, newBytes);
                 stream.BeginRead(recBuffer, 0, socket.ReceiveBufferSize, OnReceiveData, null);
             }
             catch (Exception){
