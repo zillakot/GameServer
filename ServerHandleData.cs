@@ -8,10 +8,7 @@ namespace GameServer
     {
         public delegate void Packet(int connectionID, byte[] data);
         public static Dictionary<int, Packet> packets = new Dictionary<int, Packet>();
-        public static void InitializePackets()
-        {
-            
-        }
+        public static void InitializePackets() => packets.Add((int)ClientPackets.CHelloServer, DataReceiver.HandleHelloServer);
         public static void HandleData(int connectionID, byte[] data)
         {
             byte[] buffer = (byte[])data.Clone();

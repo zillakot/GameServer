@@ -14,7 +14,10 @@ namespace GameServer
         {
             ByteBuffer buffer = new ByteBuffer();
             buffer.WriteBytes(data);
-            
+            int packetID = buffer.ReadInteger();
+            string msg = buffer.ReadString();
+            buffer.Dispose();
+            Console.WriteLine(msg);
         }
     }
 }
