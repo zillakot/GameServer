@@ -4,7 +4,7 @@ using System.Net.Sockets;
 
 namespace GameServer
 {
-    public class ServerHandleData
+    public static class ServerHandleData
     {
         public delegate void Packet(int connectionID, byte[] data);
         public static Dictionary<int, Packet> packets = new Dictionary<int, Packet>();
