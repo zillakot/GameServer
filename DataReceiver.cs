@@ -10,7 +10,7 @@ namespace GameServer
     }
     public static class DataReceiver
     {
-        public static coid HandleHelloServer(int connectionID, byte[] data)
+        public static void HandleHelloServer(int connectionID, byte[] data)
         {
             ByteBuffer buffer = new ByteBuffer();
             buffer.WriteBytes(data);

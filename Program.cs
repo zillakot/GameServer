@@ -6,7 +6,14 @@ namespace GameServer
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            InitializeServer();
+            Console.ReadLine();
+        }
+
+        private static void InitializeServer()
+        {
+            ServerTCP.InitializeNetwork();
+            Console.WriteLine("Server has been started");
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace GameServer 
@@ -37,7 +38,7 @@ namespace GameServer
             return Count() - readPos;
         }
 
-        public Clear(){
+        public void Clear(){
             Buff.Clear();
             buffUpdated = true;
         }
@@ -99,10 +100,9 @@ namespace GameServer
                 throw new Exception("Type is not a byte");
             }
         }
-
         public byte[] ReadBytes(int Length, bool Peek = true)
         {
-            if(buff.Count > readPos){
+            if(Buff.Count > readPos){
                 if(buffUpdated)
                 {
                     readBuff = Buff.ToArray();
@@ -124,7 +124,7 @@ namespace GameServer
         }
         public short ReadShort(bool Peek = true)
         {
-            if(buff.Count > readPos){
+            if(Buff.Count > readPos){
                 if(buffUpdated)
                 {
                     readBuff = Buff.ToArray();
@@ -146,7 +146,7 @@ namespace GameServer
         }
         public int ReadInteger(bool Peek = true)
         {
-            if(buff.Count > readPos){
+            if(Buff.Count > readPos){
                 if(buffUpdated)
                 {
                     readBuff = Buff.ToArray();
@@ -168,7 +168,7 @@ namespace GameServer
         }
         public long ReadLong(bool Peek = true)
         {
-            if(buff.Count > readPos){
+            if(Buff.Count > readPos){
                 if(buffUpdated)
                 {
                     readBuff = Buff.ToArray();
@@ -190,7 +190,7 @@ namespace GameServer
         }
         public float ReadFloat(bool Peek = true)
         {
-            if(buff.Count > readPos){
+            if(Buff.Count > readPos){
                 if(buffUpdated)
                 {
                     readBuff = Buff.ToArray();
@@ -212,7 +212,7 @@ namespace GameServer
         }
         public bool ReadBool(bool Peek = true)
         {
-            if(buff.Count > readPos){
+            if(Buff.Count > readPos){
                 if(buffUpdated)
                 {
                     readBuff = Buff.ToArray();

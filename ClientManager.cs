@@ -15,6 +15,8 @@ namespace GameServer
             newClient.connectionID = ((IPEndPoint)tempClient.Client.RemoteEndPoint).Port;
             newClient.Start();
             client.Add(newClient.connectionID, newClient);
+
+            DataSender.SendWelcomeMessage(newClient.connectionID);
         }
 
         public static void SendDataTo(int connectionID, byte[] data)

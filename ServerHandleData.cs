@@ -33,7 +33,7 @@ namespace GameServer
             }
             while(pLength >= 0 & pLength <= ClientManager.client[connectionID].buffer.Length() - 4)
             {
-                if(ClientManager.client[connectionID].buffer.Length >= 4)
+                if(ClientManager.client[connectionID].buffer.Length() >= 4)
                 {
                     ClientManager.client[connectionID].buffer.ReadInteger();
                     data = ClientManager.client[connectionID].buffer.ReadBytes(pLength);
@@ -41,7 +41,7 @@ namespace GameServer
                 }
 
                 pLength = 0;
-                if(ClientManager.client[connectionID].buffer.Length >= 4)
+                if(ClientManager.client[connectionID].buffer.Length() >= 4)
                 {
                     pLength = ClientManager.client[connectionID].buffer.ReadInteger();
                     if(pLength <= 0){
