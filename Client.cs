@@ -16,6 +16,7 @@ namespace GameServer
             socket.SendBufferSize = 4000;
             socket.ReceiveBufferSize = 4000;
             stream = socket.GetStream();
+            recBuffer = new byte[4096];
             stream.BeginRead(recBuffer, 0, socket.ReceiveBufferSize, OnReceiveData, null);
             Console.WriteLine("Incoming connection from '{0}'", socket.Client.RemoteEndPoint.ToString());
         }
