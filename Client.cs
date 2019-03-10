@@ -13,8 +13,8 @@ namespace GameServer
 
         public void Start()
         {
-            socket.SendBufferSize = 4000;
-            socket.ReceiveBufferSize = 4000;
+            socket.SendBufferSize = 4096;
+            socket.ReceiveBufferSize = 4096;
             stream = socket.GetStream();
             recBuffer = new byte[4096];
             stream.BeginRead(recBuffer, 0, socket.ReceiveBufferSize, OnReceiveData, null);
